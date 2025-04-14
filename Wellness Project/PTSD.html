@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>PTSD Test</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to right, #cdefff, #e6f9f9);
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 30px;
+      background-color: #ffffff;
+      border-radius: 15px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      color: #0d6a7b;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .question {
+      background-color: #f0f9f9;
+      border: 1px solid #d1eeee;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .question p {
+      margin-bottom: 12px;
+      font-weight: bold;
+      color: #333;
+    }
+
+    .options label {
+      display: block;
+      margin-bottom: 8px;
+      cursor: pointer;
+      color: #444;
+    }
+
+    button[type="submit"] {
+      background-color: #0d6a7b;
+      color: white;
+      padding: 12px 25px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.3s ease;
+      display: block;
+      margin: 20px auto 0;
+    }
+
+    button[type="submit"]:hover {
+      background-color: #0a5562;
+    }
+
+    .result {
+      margin-top: 30px;
+      font-weight: bold;
+      font-size: 22px;
+      text-align: center;
+      color: #0d6a7b;
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        width: 90%;
+        padding: 20px;
+      }
+
+      button[type="submit"] {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>PTSD Test</h1>
+    <form id="ptsdForm">
+      <div class="question">
+        <p>1. Had nightmares about the event(s) or thought about the event(s) when you did not want to?</p>
+        <div class="options">
+          <label><input type="radio" name="q1" value="0" required> No</label>
+          <label><input type="radio" name="q1" value="1"> Yes</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <p>2. Tried hard not to think about the event(s) or went out of your way to avoid situations that reminded you of the event(s)?</p>
+        <div class="options">
+          <label><input type="radio" name="q2" value="0" required> No</label>
+          <label><input type="radio" name="q2" value="1"> Yes</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <p>3. Been constantly on guard, watchful, or easily startled?</p>
+        <div class="options">
+          <label><input type="radio" name="q3" value="0" required> No</label>
+          <label><input type="radio" name="q3" value="1"> Yes</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <p>4. Felt numb or detached from people, activities, or your surroundings?</p>
+        <div class="options">
+          <label><input type="radio" name="q4" value="0" required> No</label>
+          <label><input type="radio" name="q4" value="1"> Yes</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <p>5. Felt guilty or unable to stop blaming yourself or others for the event(s) or any problems the event(s) may have caused?</p>
+        <div class="options">
+          <label><input type="radio" name="q5" value="0" required> No</label>
+          <label><input type="radio" name="q5" value="1"> Yes</label>
+        </div>
+      </div>
+
+      <button type="submit">Submit Test</button>
+    </form>
+
+    <div class="result" id="ptsdResult"></div>
+  </div>
+
+  <script>
+    document.getElementById('ptsdForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+      let total = 0;
+      const formData = new FormData(this);
+      for (let value of formData.values()) {
+        total += parseInt(value);
+      }
+
+      let message = '';
+      if (total === 0) {
+        message = 'No PTSD symptoms reported.';
+      } else if (total <= 2) {
+        message = 'Mild symptoms. Monitor and take care of yourself.';
+      } else {
+        message = 'Severe PTSD symptoms. Please seek professional help.';
+      }
+
+      document.getElementById('ptsdResult').innerText = Your score: ${total}/5 – ${message};
+    });
+  </script>
+</body>
+</html>
