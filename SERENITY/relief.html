@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Relief Zone</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f0f4f8;
+      margin: 0;
+      padding: 0;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    a {
+      text-decoration: none;
+      color: #0077b6;
+    }
+
+    header {
+      background: linear-gradient(135deg, #a0c4ff, #bdb2ff);
+      padding: 2rem;
+      text-align: center;
+      color: white;
+    }
+
+    .story-share {
+      background: white;
+      padding: 2rem;
+      max-width: 600px;
+      margin: 2rem auto;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .story-share form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .story-share input,
+    .story-share textarea {
+      margin: 0.5rem 0;
+      padding: 1rem;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+    }
+
+    .story-share button {
+      background: #00b4d8;
+      color: white;
+      border: none;
+      padding: 1rem;
+      margin-top: 1rem;
+      cursor: pointer;
+      font-weight: bold;
+      border-radius: 5px;
+      transition: 0.3s;
+    }
+
+    .story-share button:hover {
+      background-color: #0096c7;
+    }
+
+    .stories {
+      padding: 2rem;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .story-card {
+      background: #ffffff;
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+      border-left: 5px solid #8ecae6;
+      border-radius: 8px;
+      box-shadow: 0 1px 5px rgba(0, 0, 0, 0.05);
+    }
+
+    .activities {
+      padding: 2rem;
+      background-color: #e0f7fa;
+      text-align: center;
+    }
+
+    .grid {
+      display: grid;
+      gap: 1rem;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      margin-top: 1rem;
+    }
+
+    .card {
+      background: #fff;
+      padding: 1rem;
+      border-radius: 10px;
+      font-size: 1.2rem;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+      transition: transform 0.2s;
+    }
+
+    .card:hover {
+      transform: scale(1.05);
+    }
+
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      background: #caf0f8;
+      color: #333;
+      font-size: 0.95rem;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>💖 Relief Zone</h1>
+    <p>A safe space to heal, laugh, share, and find peace together.</p>
+  </header>
+
+  <section class="story-share">
+    <h2>📝 Share Your Story</h2>
+    <form>
+      <input type="text" placeholder="Your Name (or Anonymous)" required />
+      <textarea placeholder="Write your journey here..." rows="6" required></textarea>
+      <button type="submit">Submit</button>
+    </form>
+  </section>
+
+  <section class="stories">
+    <h2>🌱 Healing Stories</h2>
+    <div class="story-card">
+      <h3>“Finding Light After Anxiety”</h3>
+      <p>I used to feel completely lost. Then I found this community, and I realized I wasn’t alone. Now I want to give others hope...</p>
+      <p><strong>– Anonymous</strong></p>
+    </div>
+  </section>
+
+  <section class="activities">
+    <h2>🎉 Feel Good Activities</h2>
+    <div class="grid">
+      <div class="card">🎮 <a href="games.html">Play Games</a></div>
+      <div class="card">😂 <a href="jokes.html">Read Jokes</a></div>
+      <div class="card">💃 <a href="#">Dance Freely</a></div>
+      <div class="card">🎵 <a href="#">Listen to Music</a></div>
+      <div class="card">🌬 <a href="#">Breathing Guide</a></div>
+      <div class="card">📖 <a href="#">Book Reading</a></div>
+    </div>
+  </section>
+
+  <footer>
+    <p>📞 Need Help? Visit <a href="#">Support Resources</a> for mental health hotlines and guidance.</p>
+    <p>&copy; 2025 Relief Zone | Built with 💙 for healing hearts</p>
+  </footer>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    const socket = io();
+    socket.on("new-story", (story) => {
+      const storyList = document.querySelector(".stories");
+      const newStory = document.createElement("div");
+      newStory.classList.add("story-card");
+      newStory.innerHTML = `
+        <h3>“${story.content.slice(0, 30)}...”</h3>
+        <p>${story.content}</p>
+        <p><strong>– ${story.name}</strong></p>
+      `;
+      storyList.appendChild(newStory);
+    });
+
+    const form = document.querySelector("form");
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const name = form.querySelector("input").value;
+      const content = form.querySelector("textarea").value;
+      const res = await fetch("/api/stories", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ name, content })
+      });
+      form.reset();
+    });
+  </script>
+</body>
+
+</html>

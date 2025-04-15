@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Anxiety Test</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to right, #cdefff, #e6f9f9);
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 30px;
+      background-color: #ffffff;
+      border-radius: 15px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      color: #0d6a7b;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .question {
+      background-color: #f0f9f9;
+      border: 1px solid #d1eeee;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .question p {
+      margin-bottom: 12px;
+      font-weight: bold;
+      color: #333;
+    }
+
+    .options label {
+      display: block;
+      margin-bottom: 8px;
+      cursor: pointer;
+      color: #444;
+    }
+
+    button[type="submit"] {
+      background-color: #0d6a7b;
+      color: white;
+      padding: 12px 25px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.3s ease;
+      display: block;
+      margin: 20px auto 0;
+    }
+
+    button[type="submit"]:hover {
+      background-color: #0a5562;
+    }
+
+    .result {
+      margin-top: 30px;
+      font-weight: bold;
+      font-size: 22px;
+      text-align: center;
+      color: #0d6a7b;
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        width: 90%;
+        padding: 20px;
+      }
+
+      button[type="submit"] {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Anxiety Test</h1>
+    <form id="anxietyForm">
+      <div class="question">
+        <p>1. Feeling nervous, anxious or on edge</p>
+        <div class="options">
+          <label><input type="radio" name="q1" value="0" required> Not at all</label>
+          <label><input type="radio" name="q1" value="1"> Several days</label>
+          <label><input type="radio" name="q1" value="2"> More than half the days</label>
+          <label><input type="radio" name="q1" value="3"> Nearly every day</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <p>2. Not being able to stop or control worrying</p>
+        <div class="options">
+          <label><input type="radio" name="q2" value="0" required> Not at all</label>
+          <label><input type="radio" name="q2" value="1"> Several days</label>
+          <label><input type="radio" name="q2" value="2"> More than half the days</label>
+          <label><input type="radio" name="q2" value="3"> Nearly every day</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <p>3. Worrying too much about different things</p>
+        <div class="options">
+          <label><input type="radio" name="q3" value="0" required> Not at all</label>
+          <label><input type="radio" name="q3" value="1"> Several days</label>
+          <label><input type="radio" name="q3" value="2"> More than half the days</label>
+          <label><input type="radio" name="q3" value="3"> Nearly every day</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <p>4. Trouble relaxing</p>
+        <div class="options">
+          <label><input type="radio" name="q4" value="0" required> Not at all</label>
+          <label><input type="radio" name="q4" value="1"> Several days</label>
+          <label><input type="radio" name="q4" value="2"> More than half the days</label>
+          <label><input type="radio" name="q4" value="3"> Nearly every day</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <p>5. Being so restless that it is hard to sit still</p>
+        <div class="options">
+          <label><input type="radio" name="q5" value="0" required> Not at all</label>
+          <label><input type="radio" name="q5" value="1"> Several days</label>
+          <label><input type="radio" name="q5" value="2"> More than half the days</label>
+          <label><input type="radio" name="q5" value="3"> Nearly every day</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <p>6. Becoming easily annoyed or irritable</p>
+        <div class="options">
+          <label><input type="radio" name="q6" value="0" required> Not at all</label>
+          <label><input type="radio" name="q6" value="1"> Several days</label>
+          <label><input type="radio" name="q6" value="2"> More than half the days</label>
+          <label><input type="radio" name="q6" value="3"> Nearly every day</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <p>7. Feeling afraid as if something awful might happen</p>
+        <div class="options">
+          <label><input type="radio" name="q7" value="0" required> Not at all</label>
+          <label><input type="radio" name="q7" value="1"> Several days</label>
+          <label><input type="radio" name="q7" value="2"> More than half the days</label>
+          <label><input type="radio" name="q7" value="3"> Nearly every day</label>
+        </div>
+      </div>
+
+      <button type="submit">Submit Test</button>
+    </form>
+
+    <div class="result" id="anxietyResult"></div>
+  </div>
+
+  <script>
+    document.getElementById('anxietyForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+      let total = 0;
+      const formData = new FormData(this);
+      for (let value of formData.values()) {
+        total += parseInt(value);
+      }
+
+      let message = '';
+      if (total <= 4) {
+        message = 'Minimal anxiety. Great job managing your stress!';
+      } else if (total <= 9) {
+        message = 'Mild anxiety. Stay mindful and take care of your wellbeing.';
+      } else if (total <= 14) {
+        message = 'Moderate anxiety. Consider relaxation techniques or talking to someone.';
+      } else {
+        message = 'Severe anxiety. Please consider seeking support from a mental health professional.';
+      }
+
+      document.getElementById('anxietyResult').innerText = Your score: ${total}/21 – ${message};
+    });
+  </script>
+</body>
+</html>

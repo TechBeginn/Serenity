@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sign Up & Login - Serenity Hub</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80') no-repeat center center fixed;
+      background-size: cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      overflow: hidden;
+    }
+
+    .container {
+      background-color: rgba(255, 255, 255, 0.95);
+      padding: 50px 40px;
+      border-radius: 20px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+      width: 400px;
+      backdrop-filter: blur(10px);
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      0% { opacity: 0; transform: translateY(20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    .container h2 {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #2c3e50;
+      font-weight: 600;
+      letter-spacing: 1px;
+    }
+
+    .input-group {
+      margin-bottom: 20px;
+      position: relative;
+    }
+
+    .input-group label {
+      display: block;
+      font-size: 15px;
+      margin-bottom: 8px;
+      color: #34495e;
+      font-weight: 500;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #dfe6e9;
+      border-radius: 10px;
+      background-color: #f8f9fa;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+
+    .input-group input:focus {
+      outline: none;
+      border-color: #00b894;
+      box-shadow: 0 0 8px rgba(0, 184, 148, 0.2);
+    }
+
+    .form-btn {
+      width: 100%;
+      padding: 12px;
+      background: linear-gradient(90deg, #00b894, #55efc4);
+      border: none;
+      color: white;
+      font-size: 16px;
+      font-weight: 500;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.3s;
+      margin-top: 10px;
+    }
+
+    .form-btn:hover {
+      background: linear-gradient(90deg, #009e77, #4cd7b0);
+    }
+
+    .toggle-link {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 14px;
+      color: #636e72;
+    }
+
+    .toggle-link a {
+      color: #00b894;
+      cursor: pointer;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .toggle-link a:hover {
+      text-decoration: underline;
+    }
+
+    .error, .success {
+      font-size: 14px;
+      text-align: center;
+      margin-top: 15px;
+      font-weight: 500;
+    }
+
+    .error {
+      color: #d63031;
+    }
+
+    .success {
+      color: #00b894;
+    }
+
+    .logo {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .logo img {
+      width: 80px;
+      height: auto;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Sign Up Form -->
+    <div id="signup-form">
+      <div class="logo">
+        <!-- Placeholder for your image; replace src with your image path -->
+        <img src="https://via.placeholder.com/80?text=Logo" alt="Serenity Hub Logo">
+      </div>
+      <h2>Join Serenity Hub</h2>
+      <div class="input-group">
+        <label for="fullname">Full Name</label>
+        <input type="text" id="fullname" placeholder="Enter your name" />
+      </div>
+      <div class="input-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" placeholder="Enter your email" />
+      </div>
+      <div class="input-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" placeholder="Create a password" />
+      </div>
+      <div class="input-group">
+        <label for="confirm-password">Confirm Password</label>
+        <input type="password" id="confirm-password" placeholder="Confirm your password" />
+      </div>
+      <button class="form-btn" onclick="signup()">Sign Up</button>
+      <p class="error" id="signup-error"></p>
+      <p class="success" id="signup-success"></p>
+      <div class="toggle-link">
+        Already have an account? <a onclick="toggleForm('login')">Login</a>
+      </div>
+    </div>
+
+    <!-- Login Form -->
+    <div id="login-form" style="display: none;">
+      <div class="logo">
+        <img src="https://via.placeholder.com/80?text=Logo" alt="Serenity Hub Logo">
+      </div>
+      <h2>Welcome Back</h2>
+      <div class="input-group">
+        <label for="login-email">Email</label>
+        <input type="email" id="login-email" placeholder="Enter your email" />
+      </div>
+      <div class="input-group">
+        <label for="login-password">Password</label>
+        <input type="password" id="login-password" placeholder="Enter your password" />
+      </div>
+      <button class="form-btn" onclick="login()">Login</button>
+      <p class="error" id="login-error"></p>
+      <p class="success" id="login-success"></p>
+      <div class="toggle-link">
+        Don't have an account? <a onclick="toggleForm('signup')">Sign Up</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function toggleForm(formType) {
+      document.getElementById('signup-form').style.display = formType === 'signup' ? 'block' : 'none';
+      document.getElementById('login-form').style.display = formType === 'login' ? 'block' : 'none';
+      // Clear previous messages
+      document.getElementById('signup-error').textContent = '';
+      document.getElementById('signup-success').textContent = '';
+      document.getElementById('login-error').textContent = '';
+      document.getElementById('login-success').textContent = '';
+    }
+
+    function signup() {
+      const name = document.getElementById('fullname').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value.trim();
+      const confirmPassword = document.getElementById('confirm-password').value.trim();
+      const error = document.getElementById('signup-error');
+      const success = document.getElementById('signup-success');
+
+      error.textContent = '';
+      success.textContent = '';
+
+      if (!name || !email || !password || !confirmPassword) {
+        error.textContent = 'Please fill all the fields.';
+        return;
+      }
+
+      if (password !== confirmPassword) {
+        error.textContent = 'Passwords do not match.';
+        return;
+      }
+
+      // Basic email validation
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
+        error.textContent = 'Please enter a valid email address.';
+        return;
+      }
+
+      // Store user data in localStorage for demo purposes
+      localStorage.setItem('user', JSON.stringify({ name, email }));
+      success.textContent = 'Account created successfully!';
+      setTimeout(() => {
+        window.location.href = "dash1.html"; // Redirect to dash1.html
+      }, 1000);
+    }
+
+    function login() {
+      const email = document.getElementById('login-email').value.trim();
+      const password = document.getElementById('login-password').value.trim();
+      const error = document.getElementById('login-error');
+      const success = document.getElementById('login-success');
+
+      error.textContent = '';
+      success.textContent = '';
+
+      if (!email || !password) {
+        error.textContent = 'Please enter both email and password.';
+        return;
+      }
+
+      // For demo: Check if user exists in localStorage
+      const user = JSON.parse(localStorage.getItem('user') || '{}');
+      if (user.email === email) {
+        success.textContent = `Welcome back, ${user.name}!`;
+        setTimeout(() => {
+          window.location.href = "dash1.html"; // Redirect to dash1.html
+        }, 1000);
+      } else {
+        error.textContent = 'Invalid email or password.';
+      }
+    }
+  </script>
+</body>
+</html>

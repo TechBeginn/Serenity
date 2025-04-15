@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Doctors Directory</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f9f9f9;
+    }
+    header {
+      padding: 20px;
+      background: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #ddd;
+    }
+    .filters select {
+      padding: 8px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+    .card {
+      display: none;
+      height: calc(100vh - 120px);
+      padding: 30px;
+      text-align: center;
+      background: white;
+    }
+    .card.active {
+      display: block;
+      animation: fadeIn 1s;
+    }
+    @keyframes fadeIn {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+    .card img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 20px;
+    }
+    .card h2 {
+      margin: 10px 0 5px;
+    }
+    .card p {
+      margin: 5px 0;
+      font-size: 15px;
+    }
+    .card button {
+      padding: 10px 20px;
+      background: #4caf50;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      margin-top: 15px;
+      cursor: pointer;
+    }
+    .grid-view {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 10px;
+      padding: 10px;
+    }
+    .grid-card {
+      background: white;
+      padding: 10px;
+      border-radius: 12px;
+      text-align: center;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    .grid-card img {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div>Doctors Directory</div>
+    <div class="filters">
+      <select id="diseaseSelect">
+        <option value="">-- Select a disease --</option>
+        <option value="Anxiety">Anxiety</option>
+        <option value="Depression">Depression</option>
+        <option value="ADHD">ADHD</option>
+        <option value="PTSD">PTSD</option>
+      </select>
+    </div>
+  </header>
+
+  <div id="fullScreenView"></div>
+  <div id="gridView" class="grid-view" style="display:none;"></div>
+
+  <script>
+    const doctors = [
+      {
+        name: "Dr. Ava Ross",
+        title: "Cognitive Therapist",
+        image: "https://randomuser.me/api/portraits/women/68.jpg",
+        description: "Cognitive therapist at Mindspace Clinic, specializes in personalized approaches for Anxiety, Depression, and emotional wellbeing.",
+        email: "ava.ross@mindspace.com",
+        phone: "123-456-7890",
+        disease: ["Anxiety", "Depression"]
+      },
+      {
+        name: "Dr. Liam Connor",
+        title: "General Practitioner",
+        image: "https://randomuser.me/api/portraits/men/75.jpg",
+        description: "General physician at HealthFirst, supports mental and physical health with a calm and encouraging approach for anxiety relief.",
+        email: "liam.connor@healthfirst.org",
+        phone: "321-654-9870",
+        disease: ["Anxiety"]
+      },
+      {
+        name: "Dr. Sophia Patel",
+        title: "Neuropsychologist",
+        image: "https://randomuser.me/api/portraits/women/75.jpg",
+        description: "Neuropsychologist at BrainWell Center, focused on ADHD and PTSD recovery through cognitive retraining and holistic therapy.",
+        email: "sophia.patel@brainwell.org",
+        phone: "456-123-7890",
+        disease: ["ADHD", "PTSD"]
+      },
+      {
+        name: "Aurora Rizzo",
+        title: "Mental Health Consultant",
+        image: "https://randomuser.me/api/portraits/women/65.jpg",
+        description: "Consultant at Calm Minds, with a deep passion for PTSD healing and emotional support through therapy and coaching.",
+        email: "aurora.rizzo@calmminds.com",
+        phone: "789-654-3210",
+        disease: ["PTSD"]
+      }
+    ];
+
+    let currentIndex = 0;
+    let slideInterval;
+    const fullScreenView = document.getElementById("fullScreenView");
+    const gridView = document.getElementById("gridView");
+    const diseaseSelect = document.getElementById("diseaseSelect");
+
+    function showFullDoctor(doctor) {
+      fullScreenView.innerHTML = `
+        <div class="card active">
+          <img src="${doctor.image}" alt="${doctor.name}">
+          <h2>${doctor.name}</h2>
+          <p><strong>${doctor.title}</strong></p>
+          <p>${doctor.description}</p>
+          <p><strong>Email:</strong> <a href="mailto:${doctor.email}">${doctor.email}</a></p>
+          <p><strong>Phone:</strong> ${doctor.phone}</p>
+          <button onclick="alert('Connecting with ${doctor.name}...')">Connect</button>
+        </div>
+      `;
+    }
+
+    function startSlideshow() {
+      showFullDoctor(doctors[currentIndex]);
+      slideInterval = setInterval(() => {
+        currentIndex = (currentIndex + 1) % doctors.length;
+        showFullDoctor(doctors[currentIndex]);
+      }, 4000);
+    }
+
+    function stopSlideshow() {
+      clearInterval(slideInterval);
+    }
+
+    function filterByDisease(selectedDisease) {
+      if (selectedDisease === "") {
+        gridView.style.display = "none";
+        fullScreenView.style.display = "block";
+        startSlideshow();
+        return;
+      }
+
+      const filtered = doctors.filter(doc =>
+        doc.disease.includes(selectedDisease)
+      );
+
+      stopSlideshow();
+      fullScreenView.style.display = "none";
+      gridView.style.display = "grid";
+      gridView.innerHTML = "";
+
+      if (filtered.length === 0) {
+        gridView.innerHTML = `<p style="grid-column: 1 / -1; text-align: center;">No doctors found for ${selectedDisease}.</p>`;
+        return;
+      }
+
+      filtered.forEach(doc => {
+        const card = document.createElement("div");
+        card.className = "grid-card";
+        card.innerHTML = `
+          <img src="${doc.image}" alt="${doc.name}">
+          <h4>${doc.name}</h4>
+          <p><strong>${doc.title}</strong></p>
+          <p>${doc.description}</p>
+          <p><a href="mailto:${doc.email}">${doc.email}</a></p>
+          <p>${doc.phone}</p>
+          <button onclick="alert('Connecting with ${doc.name}...')">Connect</button>
+        `;
+        gridView.appendChild(card);
+      });
+    }
+
+    diseaseSelect.addEventListener("change", function() {
+      filterByDisease(this.value);
+    });
+
+    // Start on load
+    startSlideshow();
+  </script>
+
+</body>
+</html>

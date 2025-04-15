@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Youth Mental Health Test</title>
+  <style>
+  body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to right, #cdefff, #e6f9f9);
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 30px;
+      background-color: #ffffff;
+      border-radius: 15px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      color: #2a4d66;
+    }
+.question {
+      background-color: #f0f9f9;
+      border: 1px solid #d1eeee;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .question p {
+      margin-bottom: 12px;
+      font-weight: bold;
+      color: #333;
+    }
+
+
+    .options label {
+      margin-right: 15px;
+    }
+    .result {
+      margin-top: 20px;
+      font-weight: bold;
+      font-size: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Youth Mental Health Test</h1>
+    <form id="youthMentalHealthForm">
+      <!-- Question 1 -->
+      <div class="question">
+        <p>1. Complain of aches or pains</p>
+        <div class="options">
+          <label><input type="radio" name="q1" value="0" required> Never</label>
+          <label><input type="radio" name="q1" value="1"> Sometimes</label>
+          <label><input type="radio" name="q1" value="2"> Often</label>
+        </div>
+      </div>
+      <!-- Question 2 -->
+      <div class="question">
+        <p>2. Spend more time alone</p>
+        <div class="options">
+          <label><input type="radio" name="q2" value="0" required> Never</label>
+          <label><input type="radio" name="q2" value="1"> Sometimes</label>
+          <label><input type="radio" name="q2" value="2"> Often</label>
+        </div>
+      </div>
+      <!-- Question 3 -->
+      <div class="question">
+        <p>3. Tire easily, little energy</p>
+        <div class="options">
+          <label><input type="radio" name="q3" value="0" required> Never</label>
+          <label><input type="radio" name="q3" value="1"> Sometimes</label>
+          <label><input type="radio" name="q3" value="2"> Often</label>
+        </div>
+      </div>
+      <!-- Question 4 -->
+      <div class="question">
+        <p>4. Fidgety, unable to sit still</p>
+        <div class="options">
+          <label><input type="radio" name="q4" value="0" required> Never</label>
+          <label><input type="radio" name="q4" value="1"> Sometimes</label>
+          <label><input type="radio" name="q4" value="2"> Often</label>
+        </div>
+      </div>
+      <!-- Question 5 -->
+      <div class="question">
+        <p>5. Have trouble with teacher</p>
+        <div class="options">
+          <label><input type="radio" name="q5" value="0" required> Never</label>
+          <label><input type="radio" name="q5" value="1"> Sometimes</label>
+          <label><input type="radio" name="q5" value="2"> Often</label>
+        </div>
+      </div>
+      <!-- Question 6 -->
+      <div class="question">
+        <p>6. Less interested in school</p>
+        <div class="options">
+          <label><input type="radio" name="q6" value="0" required> Never</label>
+          <label><input type="radio" name="q6" value="1"> Sometimes</label>
+          <label><input type="radio" name="q6" value="2"> Often</label>
+        </div>
+      </div>
+      <!-- Question 7 -->
+      <div class="question">
+        <p>7. Act as if driven by motor</p>
+        <div class="options">
+          <label><input type="radio" name="q7" value="0" required> Never</label>
+          <label><input type="radio" name="q7" value="1"> Sometimes</label>
+          <label><input type="radio" name="q7" value="2"> Often</label>
+        </div>
+      </div>
+      <!-- Question 8 -->
+      <div class="question">
+        <p>8. Daydream too much</p>
+        <div class="options">
+          <label><input type="radio" name="q8" value="0" required> Never</label>
+          <label><input type="radio" name="q8" value="1"> Sometimes</label>
+          <label><input type="radio" name="q8" value="2"> Often</label>
+        </div>
+      </div>
+      <!-- Question 9 -->
+      <div class="question">
+        <p>9. Distract easily</p>
+        <div class="options">
+          <label><input type="radio" name="q9" value="0" required> Never</label>
+          <label><input type="radio" name="q9" value="1"> Sometimes</label>
+          <label><input type="radio" name="q9" value="2"> Often</label>
+        </div>
+      </div>
+      <!-- Question 10 -->
+      <div class="question">
+        <p>10. Are afraid of new situations</p>
+        <div class="options">
+          <label><input type="radio" name="q10" value="0" required> Never</label>
+          <label><input type="radio" name="q10" value="1"> Sometimes</label>
+          <label><input type="radio" name="q10" value="2"> Often</label>
+        </div>
+      </div>
+      <!-- Question 11 -->
+      <div class="question">
+        <p>11. Feel sad, unhappy</p>
+        <div class="options">
+          <label><input type="radio" name="q11" value="0" required> Never</label>
+          <label><input type="radio" name="q11" value="1"> Sometimes</label>
+          <label><input type="radio" name="q11" value="2"> Often</label>
+        </div>
+      </div>
+      <!-- Question 12 -->
+      <div class="question">
+        <p>12. Are irritable, angry</p>
+        <div class="options">
+          <label><input type="radio" name="q12" value="0" required> Never</label>
+          <label><input type="radio" name="q12" value="1"> Sometimes</label>
+          <label><input type="radio" name="q12" value="2"> Often</label>
+        </div>
+      </div>
+      <!-- Question 13 -->
+      <div class="question">
+        <p>13. Feel hopeless</p>
+        <div class="options">
+          <label><input type="radio" name="q13" value="0" required> Never</label>
+          <label><input type="radio" name="q13" value="1"> Sometimes</label>
+          <label><input type="radio" name="q13" value="2"> Often</label>
+        </div>
+      </div>
+      <!-- Question 14 -->
+      <div class="question">
+        <p>14. Have trouble concentrating</p>
+        <div class="options">
+          <label><input type="radio" name="q14" value="0" required> Never</label>
+          <label><input type="radio" name="q14" value="1"> Sometimes</label>
+          <label><input type="radio" name="q14" value="2"> Often</label>
+        </div>
+      </div>
+      <!-- Question 15 -->
+      <div class="question">
+        <p>15. Less interested in friends</p>
+        <div class="options">
+          <label><input type="radio" name="q15" value="0" required> Never</label>
+          <label><input type="radio" name="q15" value="1"> Sometimes</label>
+          <label><input type="radio" name="q15" value="2"> Often</label>
+        </div>
+      </div>
+      <!-- Question 16 -->
+      <div class="question">
+        <p>16. Fight with other children</p>
+        <div class="options">
+          <label><input type="radio" name="q16" value="0" required> Never</label>
+          <label><input type="radio" name="q16" value="1"> Sometimes</label>
+          <label><input type="radio" name="q16" value="2"> Often</label>
+        </div>
+      </div>
+      <!-- Question 17 -->
+      <div class="question">
+        <p>17. Absent from school</p>
+        <div class="options">
+          <label><input type="radio" name="q17" value="0" required> Never</label>
+          <label><input type="radio" name="q17" value="1"> Sometimes</label>
+          <label><input type="radio" name="q17" value="2"> Often</label>
+        </div>
+      </div>
+      <!-- Question 18 -->
+      <div class="question">
+        <p>18. School grades dropping</p>
+        <div class="options">
+          <label><input type="radio" name="q18" value="0" required> Never</label>
+          <label><input type="radio" name="q18" value="1"> Sometimes</label>
+          <label><input type="radio" name="q18" value="2"> Often</label>
+        </div>
+      </div>
+      <!-- Question 19 -->
+      <div class="question">
+        <p>19. Down on yourself</p>
+        <div class="options">
+          <label><input type="radio" name="q19" value="0" required> Never</label>
+          <label><input type="radio" name="q19" value="1"> Sometimes</label>
+          <label><input type="radio" name="q19" value="2"> Often</label>
+        </div>
+      </div>
+      <!-- Question 20 -->
+      <div class="question">
+        <p>20. Visit doctor with doctor finding nothing wrong</p>
+        <div class="options">
+          <label><input type="radio" name="q20" value="0" required> Never</label>
+          <label><input type="radio" name="q20" value="1"> Sometimes</label>
+          <label><input type="radio" name="q20" value="2"> Often</label>
+        </div>
+      </div>
+      <!-- Question 21 -->
+      <div class="question">
+        <p>21. Have trouble sleeping</p>
+        <div class="options">
+          <label><input type="radio" name="q21" value="0" required> Never</label>
+          <label><input type="radio" name="q21" value="1"> Sometimes</label>
+          <label><input type="radio" name="q21" value="2"> Often</label>
+        </div>
+      </div>
+      <!-- Question 22 -->
+      <div class="question">
+        <p>22. Worry a lot</p>
+        <div class="options">
+          <label><input type="radio" name="q22" value="0" required> Never</label>
+          <label><input type="radio" name="q22" value="1"> Sometimes</label>
+          <label><input type="radio" name="q22" value="2"> Often</label>
+        </div>
+      </div>
+      <!-- Question 23 -->
+      <div class="question">
+        <p>23. Want to be with parent more than before</p>
+        <div class="options">
+          <label><input type="radio" name="q23" value="0" required> Never</label>
+          <label><input type="radio" name="q23" value="1"> Sometimes</label>
+          <label><input type="radio" name="q23" value="2"> Often</label>
+        </div>
+      </div>
+      <!-- Question 24 -->
+      <div class="question">
+        <p>24. Feel that you are bad</p>
+        <div class="options">
+          <label><input type="radio" name="q24" value="0" required> Never</label>
+          <label><input type="radio" name="q24" value="1"> Sometimes</label>
+          <label><input type="radio" name="q24" value="2"> Often</label>
+        </div>
+      </div>
+      <!-- Question 25 -->
+      <div class="question">
+        <p>25. Take unnecessary risks</p>
+        <div class="options">
+          <label><input type="radio" name="q25" value="0" required> Never</label>
+          <label><input type="radio" name="q25" value="1"> Sometimes</label>
+          <label><input type="radio" name="q25" value="2"> Often</label>
+        </div>
+      </div>
+      <!-- Question 26 -->
+      <div class="question">
+        <p>26. Get hurt frequently</p>
+        <div class="options">
+          <label><input type="radio" name="q26" value="0" required> Never</label>
+          <label><input type="radio" name="q26" value="1"> Sometimes</label>
+          <label><input type="radio" name="q26" value="2"> Often</label>
+        </div>
+      </div>
+      <!-- Question 27 -->
+      <div class="question">
+        <p>27. Seem to be having less fun</p>
+        <div class="options">
+          <label><input type="radio" name="q27" value="0" required> Never</label>
+          <label><input type="radio" name="q27" value="1"> Sometimes</label>
+          <label><input type="radio" name="q27" value="2"> Often</label>
+        </div>
+      </div>
+      <!-- Question 28 -->
+      <div class="question">
+        <p>28. Act younger than children your age</p>
+        <div class="options">
+          <label><input type="radio" name="q28" value="0" required> Never</label>
+          <label><input type="radio" name="q28" value="1"> Sometimes</label>
+          <label><input type="radio" name="q28" value="2"> Often</label>
+        </div>
+      </div>
+      <!-- Question 29 -->
+      <div class="question">
+        <p>29. Do not listen to rules</p>
+        <div class="options">
+          <label><input type="radio" name="q29" value="0" required> Never</label>
+          <label><input type="radio" name="q29" value="1"> Sometimes</label>
+          <label><input type="radio" name="q29" value="2"> Often</label>
+        </div>
+      </div>
+      <!-- Question 30 -->
+      <div class="question">
+        <p>30. Do not show feelings</p>
+        <div class="options">
+          <label><input type="radio" name="q30" value="0" required> Never</label>
+          <label><input type="radio" name="q30" value="1"> Sometimes</label>
+          <label><input type="radio" name="q30" value="2"> Often</label>
+        </div>
+      </div>
+      <!-- Question 31 -->
+      <div class="question">
+        <p>31. Do not understand other people's feelings</p>
+        <div class="options">
+          <label><input type="radio" name="q31" value="0" required> Never</label>
+          <label><input type="radio" name="q31" value="1"> Sometimes</label>
+          <label><input type="radio" name="q31" value="2"> Often</label>
+        </div>
+      </div>
+      <!-- Question 32 -->
+      <div class="question">
+        <p>32. Tease others</p>
+        <div class="options">
+          <label><input type="radio" name="q32" value="0" required> Never</label>
+          <label><input type="radio" name="q32" value="1"> Sometimes</label>
+          <label><input type="radio" name="q32" value="2"> Often</label>
+        </div>
+      </div>
+      <!-- Question 33 -->
+      <div class="question">
+        <p>33. Blame others for your troubles</p>
+        <div class="options">
+          <label><input type="radio" name="q33" value="0" required> Never</label>
+          <label><input type="radio" name="q33" value="1"> Sometimes</label>
+          <label><input type="radio" name="q33" value="2"> Often</label>
+        </div>
+      </div>
+      <!-- Question 34 -->
+      <div class="question">
+        <p>34. Take things that do not belong to you</p>
+        <div class="options">
+          <label><input type="radio" name="q34" value="0" required> Never</label>
+          <label><input type="radio" name="q34" value="1"> Sometimes</label>
+          <label><input type="radio" name="q34" value="2"> Often</label>
+        </div>
+      </div>
+      <!-- Question 35 -->
+      <div class="question">
+        <p>35. Refuse to share</p>
+        <div class="options">
+          <label><input type="radio" name="q35" value="0" required> Never</label>
+          <label><input type="radio" name="q35" value="1"> Sometimes</label>
+          <label><input type="radio" name="q35" value="2"> Often</label>
+        </div>
+      </div>
+      <!-- Last Question -->
+      <div class="question">
+        <p>Do you have any emotional or behavioral problems for which you need help?</p>
+        <div class="options">
+          <label><input type="radio" name="q36" value="no" required> No</label>
+          <label><input type="radio" name="q36" value="yes"> Yes</label>
+        </div>
+      </div>
+      
+      <button type="submit">Submit</button>
+    </form>
+
+    <div class="result" id="result"></div>
+  </div>
+
+  <script>
+    document.getElementById('youthMentalHealthForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+      let score = 0;
+      const formElements = event.target.elements;
+      for (let i = 0; i < formElements.length; i++) {
+        if (formElements[i].type === 'radio' && formElements[i].checked) {
+          score += parseInt(formElements[i].value);
+        }
+      }
+
+      let result = 'Your score: ' + score + ' - ';
+      if (score <= 50) {
+        result += 'You seem to be in good mental health.';
+      } else if (score <= 80) {
+        result += 'You may want to speak to a counselor.';
+      } else {
+        result += 'We recommend seeking help from a mental health professional.';
+      }
+
+      document.getElementById('result').innerText = result;
+    });
+  </script>
+</body>
+</html>

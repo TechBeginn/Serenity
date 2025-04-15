@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Relief Games</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f9;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background: #6a9c97;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    .container {
+      padding: 20px;
+    }
+    .games-section {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+    }
+    .card {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      padding: 20px;
+    }
+    .card h3 {
+      margin-top: 0;
+    }
+    textarea, input {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+    button {
+      background: #6a9c97;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    canvas {
+      border: 1px solid #ccc;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🌿 Mental Health Relief Games</h1>
+    <p>Offline Tools for Relaxation, Reflection & Growth</p>
+  </header>
+  <div class="container">
+    <h2>🎮 Games Section</h2>
+    <div class="games-section">
+      <!-- Mood Matching -->
+      <div class="card">
+        <h3>🧠 Mood Matcher</h3>
+        <p>How are you feeling today?</p>
+        <select id="mood">
+          <option>Happy</option>
+          <option>Sad</option>
+          <option>Stressed</option>
+          <option>Calm</option>
+        </select>
+        <button onclick="checkMood()">Submit</button>
+        <p id="moodResponse"></p>
+      </div>
+
+      <!-- Coloring Canvas -->
+      <div class="card">
+        <h3>🎨 Color Therapy</h3>
+        <canvas id="canvas" width="300" height="300"></canvas><br>
+        <input type="color" id="colorPicker">
+      </div>
+
+      <!-- Gratitude Journal -->
+      <div class="card">
+        <h3>📝 Gratitude Journal</h3>
+        <textarea id="gratitude" placeholder="Write 3 things you're grateful for..."></textarea>
+        <button onclick="saveGratitude()">Save</button>
+        <ul id="gratitudeList"></ul>
+      </div>
+
+      <!-- Breathing Game -->
+      <div class="card">
+        <h3>🍃 Breathe With Me</h3>
+        <p id="breathText">Ready?</p>
+        <button onclick="startBreathing()">Start</button>
+      </div>
+
+      <!-- Thought Reframe -->
+      <div class="card">
+        <h3>🔄 Flip-a-Thought</h3>
+        <p id="thoughtText">"I'm not good enough"</p>
+        <button onclick="flipThought()">Flip Thought</button>
+      </div>
+
+      <!-- Kindness Quest -->
+      <div class="card">
+        <h3>🕊 Kindness Quest</h3>
+        <button onclick="newKindness()">Get Kindness Task</button>
+        <p id="kindnessTask"></p>
+      </div>
+
+      <!-- Affirmation Swap -->
+      <div class="card">
+        <h3>💬 Affirmation Swap</h3>
+        <input id="affirmationInput" placeholder="Write an affirmation">
+        <button onclick="swapAffirmation()">Send & Receive</button>
+        <p id="receivedAffirmation"></p>
+      </div>
+
+      <!-- Zen Puzzle (Mock) -->
+      <div class="card">
+        <h3>🧩 Zen Puzzle</h3>
+        <p>Coming soon! A soothing puzzle experience in development.</p>
+      </div>
+
+      <!-- Story Explorer -->
+      <div class="card">
+        <h3>📚 Story Explorer</h3>
+        <p>You choose how the journey goes...</p>
+        <button onclick="alert('The journey begins...')">Start</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function checkMood() {
+      const mood = document.getElementById("mood").value;
+      let msg = {
+        Happy: "That's great! Keep spreading joy 🌞",
+        Sad: "It's okay to feel sad. You're not alone 💙",
+        Stressed: "Take a deep breath. You're doing your best. 🌬",
+        Calm: "Stay present and enjoy this peace 🧘"
+      };
+      document.getElementById("moodResponse").innerText = msg[mood];
+    }
+
+    const canvas = document.getElementById("canvas");
+    const ctx = canvas.getContext("2d");
+    canvas.addEventListener("mousedown", function (e) {
+      const color = document.getElementById("colorPicker").value;
+      const rect = canvas.getBoundingClientRect();
+      ctx.fillStyle = color;
+      ctx.fillRect(e.clientX - rect.left, e.clientY - rect.top, 10, 10);
+    });
+
+    function saveGratitude() {
+      const text = document.getElementById("gratitude").value;
+      if (text.trim() !== "") {
+        const li = document.createElement("li");
+        li.textContent = text;
+        document.getElementById("gratitudeList").appendChild(li);
+        document.getElementById("gratitude").value = "";
+      }
+    }
+
+    function startBreathing() {
+      let steps = ["Breathe in...", "Hold...", "Breathe out...", "Hold..."];
+      let count = 0;
+      const interval = setInterval(() => {
+        document.getElementById("breathText").innerText = steps[count % steps.length];
+        count++;
+        if (count > 7) clearInterval(interval);
+      }, 3000);
+    }
+
+    function flipThought() {
+      const thoughts = [
+        ["I'm not good enough", "I am enough just as I am."],
+        ["I can't do this", "I will try my best and grow from it."],
+        ["I'm a failure", "I'm learning and that's valuable."],
+        ["Nobody understands me", "Someone out there cares."],
+      ];
+      const current = document.getElementById("thoughtText").innerText;
+      const next = thoughts.find(t => t[0] === current) || thoughts[Math.floor(Math.random() * thoughts.length)];
+      document.getElementById("thoughtText").innerText = next[1];
+    }
+
+    function newKindness() {
+      const tasks = [
+        "Send a kind message to a friend",
+        "Give yourself a compliment",
+        "Drink a glass of water",
+        "Take a deep breath and smile",
+        "Write down one thing you love about yourself"
+      ];
+      document.getElementById("kindnessTask").innerText = tasks[Math.floor(Math.random() * tasks.length)];
+    }
+
+    const affirmationPool = [
+      "You are strong.",
+      "You are loved.",
+      "You are enough.",
+      "You are doing your best."
+    ];
+
+    function swapAffirmation() {
+      const input = document.getElementById("affirmationInput").value;
+      if (input.trim() !== "") affirmationPool.push(input);
+      const random = affirmationPool[Math.floor(Math.random() * affirmationPool.length)];
+      document.getElementById("receivedAffirmation").innerText = random;
+      document.getElementById("affirmationInput").value = "";
+    }
+  </script>
+</body>
+</html>
